@@ -1,4 +1,7 @@
-<?php require_once "../src/conecta.php" ?>
+<?php 
+require_once "../src/funcoes-fabricantes.php";
+$listaDeFabricantes = lerFabricantes($conexao);
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -25,18 +28,7 @@
             </thead>
             <tbody>
 <?php
-    // string com o comando SQL
-    $sql = "SELECT id,nome FROM fabricantes";
-    // preparação do comando
-    $consulta = $conexao->prepare($sql);
-    // execuçaõ do comando
-    $consulta->execute();
-    // capturar os resultados
-    $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
-    /* echo "<pre>";
-    var_dump($resultado);
-    echo "</pre>"; */
-    foreach ($resultado as $fabricante) {?>
+    foreach ($listaDeFabricantes as $fabricante) {?>
             <tr>
                 <td><?=$fabricante['id']?></td>
                 <td><?=$fabricante['nome']?></td>
