@@ -14,7 +14,7 @@ function lerFabricantes(PDO $conexao):array { // :array faz os dados virar array
 }
 // Inserir Fabricante
 function inserirFabricante(PDO $conexao, string $nome):void{ // :void faz a função sem retorno
-    // :qualquer_coisa: named parameters
+    // :qualquer-coisa named parameter
     $sql= "INSERT INTO fabricantes(nome) VALUES (:nome)";
     try {
         $consulta = $conexao->prepare($sql);

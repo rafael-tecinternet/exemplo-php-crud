@@ -2,10 +2,13 @@
 // Verificando se o botão do formulário foi acionado
 if(isset($_POST['inserir'])){
     //  Importando as funções e a conexão
-    require_once "../funcoes-fabricantes.php";
-    // Capturando o que foi digitado no campo nome
-    $nome = $_POST['nome'];
+    require_once "../src/funcoes-fabricantes.php";
+    // Capturando e limpando o que foi digitado no campo nome
+    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+    // Chamando a função e passando os dados de conexão e o nome digitado
     inserirFabricante($conexao, $nome);
+    //redireciona 
+    header("location:listar.php");
 }
 ?>
 <!DOCTYPE html>
