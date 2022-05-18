@@ -10,7 +10,9 @@ $listaDeFabricantes = lerFabricantes($conexao);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabricantes - Lista</title>
     <style>
-        td, th{text-align: center; border: solid 1px blue}
+        td, th{text-align: center; border: solid 1px darkgreen}
+        .atualizar {color: blue;}
+        .excluir {color: red;}
     </style>
 </head>
 <body>
@@ -25,6 +27,7 @@ $listaDeFabricantes = lerFabricantes($conexao);
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
+                    <th colspan="2">Operações</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +36,8 @@ $listaDeFabricantes = lerFabricantes($conexao);
             <tr>
                 <td><?=$fabricante['id']?></td>
                 <td><?=$fabricante['nome']?></td>
+                <td><a href="atualizar.php?id=<?=$fabricante['id']?>" class="atualizar"> Atualizar</a></td> <!-- ?parametro link dinâmico -->
+                <td><a href="" class="excluir">Excluir</a></td>
             </tr>
 <?php        
     }
