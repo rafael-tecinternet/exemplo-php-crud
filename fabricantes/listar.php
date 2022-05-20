@@ -10,9 +10,11 @@ $listaDeFabricantes = lerFabricantes($conexao);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabricantes - Lista</title>
     <style>
-        td, th{text-align: center; border: solid 1px darkgreen}
-        .atualizar {color: blue;}
-        .excluir {color: red;}
+        td {background-color: whitesmoke;}
+        th {background-color: darkgreen; color: aliceblue;}
+        td, th{text-align: center; border: solid 1px black; border-radius: 5px; box-shadow: 3px 3px 3px 3px #888888;}
+        .atualizar {color: blue; text-decoration: none;}
+        .excluir {color: red; text-decoration: none;}
     </style>
 </head>
 <body>
@@ -40,7 +42,7 @@ $listaDeFabricantes = lerFabricantes($conexao);
                 <td><?=$fabricante['id']?></td>
                 <td><?=$fabricante['nome']?></td>
                 <td><a href="atualizar.php?id=<?=$fabricante['id']?>" class="atualizar"> Atualizar</a></td> <!-- ?parametro link dinâmico -->
-                <td><a href="" class="excluir">Excluir</a></td>
+                <td><a href="excluir.php?id=<?=$fabricante['id']?>" class="excluir">Excluir</a></td>
             </tr>
 <?php        
     }
@@ -48,5 +50,16 @@ $listaDeFabricantes = lerFabricantes($conexao);
             </tbody>
         </table>
     </div>
+    <script>
+        // Acessando todos os links com a classe excluir
+        const links = document.querySelectorAll('.excluir');
+        for (let i = 0; i < links.length; i++) {
+            links[i].addEventListener("click", function(event){
+                event.preventDefault();
+                let resposta = confirm("Deseja realmente excluir ?");
+                if (resposta) location.href = links[i].getAttribute('href');  
+            });   
+        } 
+    </script>
 </body>
 </html>
