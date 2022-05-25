@@ -13,7 +13,7 @@
         <p>Operação de <b>inserção</b>,<b>leitura</b>,<b>atualização</b> e <b>exclusão</b> de dados.</p>
         <ul>
             <li><a href="fabricantes/listar.php">Fabricantes</a></li>
-            <li><a href="">Produtos</a></li>
+            <li><a href="produtos/listar.php">Produtos</a></li>
         </ul>
     </div>
 </body>
