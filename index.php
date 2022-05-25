@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Vendas</title>
+    <style>
+        h1 {text-align: center; width: 400px; max-width: 60%; box-shadow: 1px 1px 1px 1px deepskyblue;}
+        
+    </style>
 </head>
 <body>
     <div class="container">
