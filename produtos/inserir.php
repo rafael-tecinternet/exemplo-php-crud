@@ -1,6 +1,16 @@
 <?php
 require_once "../src/funcoes-fabricantes.php";
 $fabricantes = lerFabricantes($conexao);
+if(isset($_POST['inserir'])){
+    require_once "../src/funcoes-produtos.php";
+    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+    $preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $quantidade = filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_NUMBER_INT);
+    $descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS);
+    $fabricanteId = filter_input(INPUT_POST, 'fabricante', FILTER_SANITIZE_NUMBER_INT);
+    inserirProduto($conexao, $nome, $preco, $quantidade, $descricao, $fabricanteId);
+    header("location:listar.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -10,11 +20,10 @@ $fabricantes = lerFabricantes($conexao);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos - Inserir</title>
     <style>
-    form {max-width: 500px;
-    width: 95%;
-    margin: 0;
-    padding: 1rem;
-    border-radius: 10px;}
+    form {margin: 0; padding: 0; margin-left: 10px;}
+    p {font-size: 1.3em;}
+    select, input[type=number], input[type=text], textarea {width: 20%; padding: 6px 10px; border: none; border-radius: 10px; background-color: #f1f1f1; display: flex;}
+    a {text-decoration: none;}
     </style>
 </head>
 <body>
@@ -37,10 +46,10 @@ $fabricantes = lerFabricantes($conexao);
             <p>
                 <label for="fabricante">Fabricante: </label>
                 <select name="fabricante" id="fabricante">
-                    <option value="<?=$fabricante['id']?>"></option>
+                    <option value=""></option>
                     <?php
                     foreach ($fabricantes as $fabricante) { ?>
-                        <option><?=$fabricante['nome']?></option>
+                        <option value="<?=$fabricante['id']?>"><?=$fabricante['nome']?></option>
                     <?php    
                     }
                     ?>
