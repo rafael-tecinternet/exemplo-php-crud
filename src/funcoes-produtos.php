@@ -38,6 +38,32 @@ function lerUmProduto(PDO $conexao, int $id):array{
     }
     return $resultado;
 }
+function atualizarProduto(PDO $conexao, int $id, string $nome, float $preco, int $quantidade, string $descricao, int $fabricanteId):void{
+    $sql = "UPDATE produtos SET nome = :nome, preco = :preco, quantidade = :quantidade, descricao = :descricao, fabricante_id = :fabricante_id WHERE id = :id";
+    try {
+        $consulta = $conexao->prepare($sql);
+        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+        $consulta->bindParam(':nome', $nome, PDO::PARAM_STR);
+        $consulta->bindParam(':preco', $preco, PDO::PARAM_STR);
+        $consulta->bindParam(':quantidade', $quantidade, PDO::PARAM_INT);
+        $consulta->bindParam(':descricao', $descricao, PDO::PARAM_STR);
+        $consulta->bindParam(':fabricante_id', $fabricanteId, PDO::PARAM_INT);
+        $consulta->execute();
+    } catch (Exception $erro) {
+        die("Erro: " .$erro->getMessage());
+    }
+}
+function excluirProduto(PDO $conexao, int $id):void{
+    $sql = "DELETE FROM produtos WHERE id = :id";
+    try {
+        $consulta = $conexao->prepare($sql);
+        $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
+    } catch (Exception $erro) {
+        die("Erro: " .$erro->getMessage());
+    }
+
+}
 // Funções Utilitárias
 function dump($dados){
     echo "<pre>";

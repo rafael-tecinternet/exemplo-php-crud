@@ -4,8 +4,16 @@ $fabricantes = lerFabricantes($conexao);
 require_once "../src/funcoes-produtos.php";
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $fabricanteDados = lerUmProduto($conexao, $id);
-$produto = lerProdutos($conexao);
-
+if (isset($_POST['atualizar'])) {
+    require_once "../src/funcoes-produtos.php";
+    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+    $preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $quantidade = filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_NUMBER_INT);
+    $descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS);
+    $fabricanteId = filter_input(INPUT_POST, 'fabricante', FILTER_SANITIZE_NUMBER_INT);
+    atualizarProduto($conexao, $id, $nome, $preco, $quantidade, $descricao, $fabricanteId);
+    header("location:listar.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -45,7 +53,7 @@ $produto = lerProdutos($conexao);
                     <option value=""></option>
                     <?php
                     foreach ($fabricantes as $fabricante) { ?>
-                        <option selected value="<?=$fabricante['id']?>"><?=$fabricante['nome']?></option>
+                        <option <?php if($fabricanteDados['fabricante_id'] == $fabricante['id']) echo "selected"; ?> value="<?=$fabricante['id']?>"><?=$fabricante['nome']?></option>
                     <?php    
                     }
                     ?>
@@ -53,11 +61,11 @@ $produto = lerProdutos($conexao);
             </p>
             <p>
                 <label for="descricao">Descrição: </label>
-                <textarea name="descricao" id="descricao" cols="30" rows="3"><?=$fabricanteDados['descricao']?>"</textarea>
+                <textarea name="descricao" id="descricao" cols="30" rows="3" required><?=$fabricanteDados['descricao']?>"</textarea>
             </p>
             
 
-            <button type="submit" name="inserir">Atualizar Produto</button>
+            <button type="submit" name="atualizar">Atualizar Produto</button>
         </form>
         <p><a href="listar.php">Voltar para a lista de Produtos</a></p>
         <p><a href="../index.php">Home</a></p>

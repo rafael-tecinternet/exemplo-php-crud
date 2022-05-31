@@ -45,5 +45,6 @@ $listaDeProdutos = lerProdutos($conexao);
         ?>
         </div>
     </div>    
+    <script src="../JS/confirma.js"></script>
 </body>
 </html>
