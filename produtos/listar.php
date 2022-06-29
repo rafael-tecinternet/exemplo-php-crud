@@ -1,6 +1,8 @@
 <?php
-require "../src/funcoes-produtos.php";
-$listaDeProdutos = lerProdutos($conexao);
+use CrudPoo\Produto;
+require "../vendor/autoload.php";
+$produto = new Produto;
+$listaDeProdutos = $produto->lerProdutos();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -33,7 +35,7 @@ $listaDeProdutos = lerProdutos($conexao);
         ?>    
             <article>
                 <h3><?=$produto['produto']?></h3>
-                <p class="ico">PREÇO: <?=formataMoeda($produto['preco'])?></p>
+                <p class="ico">PREÇO: <?=number_format($produto['preco'], 2, ",", ".")?></p>
                 <p>QUANTIDADE: <?=$produto['quantidade']?> unidades</p>
                 <p>DESCRIÇÃO: <?=$produto['descricao']?></p>
                 <p>FABRICANTE: <?=$produto['fabricante']?></p>
