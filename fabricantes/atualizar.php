@@ -1,15 +1,13 @@
 <?php
-
 use CrudPoo\Fabricante;
-
 require_once "../vendor/autoload.php";
-$fabricantes = new Fabricante;
+$fabricante = new Fabricante;
 // Obtendo o valor do parâmetro da URL
-$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-$fabricante = $fabricantes->lerUmFabricante($id);
+$fabricante->setId($_GET['id']);
+$dadosFabricante = $fabricante->lerUmFabricante();
 if(isset($_POST['atualizar'])){
-    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
-    $fabricantes->atualizarFabricante($id, $nome);
+    $fabricante->setNome($_POST['nome']);
+    $fabricante->atualizarFabricante();
     header("location:listar.php?status=sucesso");
 }
 ?>
@@ -26,10 +24,10 @@ if(isset($_POST['atualizar'])){
         <h1>Fabricantes | SELECT/UPDATE</h1>
         <hr>
         <form action="" method="post">
-            <input type="hidden" name="<?=$fabricante['id']?>">
+            <input type="hidden" name="<?=$dadosFabricante['id']?>">
             <p>
                 <label for="nome">Nome: </label>
-                <input value="<?=$fabricante['nome']?>" type="text" name="nome" id="nome">
+                <input value="<?=$dadosFabricante['nome']?>" type="text" name="nome" id="nome">
             </p>
             <button type="submit" name="atualizar">Atualizar fabricante</button>
         </form>

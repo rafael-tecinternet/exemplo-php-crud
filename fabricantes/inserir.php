@@ -11,7 +11,6 @@ if(isset($_POST['inserir'])){
     //redireciona 
     header("location:listar.php");
 }
-var_dump($fabricante);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

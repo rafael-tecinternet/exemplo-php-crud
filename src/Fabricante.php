@@ -1,7 +1,7 @@
 <?php
 namespace CrudPoo;
 use PDO, Exception;
-class Fabricante {
+final class Fabricante {
     private int $id;
     private string $nome;
     // Esta propriedade recebera os recursos PDO atráves da classe Banco (dependência di projeto)
@@ -33,11 +33,11 @@ class Fabricante {
             die("Erro: " .$erro->getMessage());
         }
     }
-    public function lerUmFabricante(int $id):array {
+    public function lerUmFabricante():array {
         $sql = "SELECT id, nome FROM fabricantes WHERE id = :id";
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+            $consulta->bindParam(':id', $this->id, PDO::PARAM_INT);
             $consulta->execute();
             $resultado = $consulta->fetch(PDO::FETCH_ASSOC); 
         } catch (Exception $erro) {
@@ -45,22 +45,22 @@ class Fabricante {
         }
         return $resultado;
     }
-    public function atualizarFabricante(int $id, string $nome):void{
+    public function atualizarFabricante():void{
         $sql = "UPDATE fabricantes SET nome = :nome WHERE id = :id";
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindParam(':nome', $nome, PDO::PARAM_STR);
-            $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+            $consulta->bindParam(':nome', $this->nome, PDO::PARAM_STR);
+            $consulta->bindParam(':id', $this->id, PDO::PARAM_INT);
             $consulta->execute();
         } catch (Exception $erro) {
             die("Erro: " .$erro->getMessage());
         }
     }
-    public function excluirFabricante(int $id):void{
+    public function excluirFabricante():void{
         $sql = "DELETE FROM fabricantes WHERE id = :id";
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+            $consulta->bindParam(':id', $this->id, PDO::PARAM_INT);
             $consulta->execute();
         } catch (Exception $erro) {
             die("Erro: " .$erro->getMessage());
@@ -72,7 +72,7 @@ class Fabricante {
     }
     public function setId(int $id)
     {
-        $this->id = $id;
+        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
     }
 
     public function getNome(): string
