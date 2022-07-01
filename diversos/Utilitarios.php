@@ -1,14 +1,14 @@
 <?php
-namespace Diversos;
+namespace CrudDiversos;
 abstract class Utilitarios {
-    public static float $moeda;
-    public static array $dados;
-    public static function formataMoeda(float $moeda):string{
-        return "R$ ".number_format($moeda, 2 , ",", ".");
+    public static function formataMoeda(float $valor):string{
+        return "R$ ".number_format($valor, 2 , ",", ".");
     }
-    public static function dump($dados){
-        
+    public static function teste(array $dados){
+        echo "<pre>";
+        var_dump($dados);
+        echo "</pre>";
     }
-
 }
 ?>
+ 
