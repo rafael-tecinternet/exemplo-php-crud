@@ -14,7 +14,7 @@ $listaDeFabricantes = $fabricante->lerFabricantes();
     <style>
         td {background-color: whitesmoke;}
         th {background-color: darkgreen; color: aliceblue;}
-        td, th{text-align: center; border: solid 1px black; border-radius: 5px; box-shadow: 3px 3px 3px 3px #888888;}
+        td, th{text-align: center; border: solid 2px black; border-radius: 5px; box-shadow: 3px 3px 3px 3px #888888;}
         .atualizar {color: blue; text-decoration: none;}
         .excluir {color: red; text-decoration: none;}
     </style>
@@ -24,7 +24,19 @@ $listaDeFabricantes = $fabricante->lerFabricantes();
         <h1>Fabricantes | SELECT</h1>
         <hr>
         <h2>Lendo e carregando todos os fabricantes</h2>
-        <p><a href="inserir.php">Inserir  um novo fabricante</a></p>
+        <p><a href="inserir.php">Inserir  um novo fabricante</a> | 
+        <!-- flag/sinalixador de parâmetro exportarPDF -->
+        <?php
+        if(isset($_GET['exportarPDF'])){
+            // Inicializando uma sessão PHP
+            session_start();
+            // Criando uma variável de sessão
+            $_SESSION["dados"] = $listaDeFabricantes;
+            // Redirecionando para o script de exportação
+            header("location:../exportar-pdf.php");
+        }
+        ?>
+        <a href="?exportarPDF">Exportar para PDF</a></p>
         <p><a href="../index.php">Voltar a Home</a></p>
         <?php if(isset($_GET['status']) && $_GET['status'] == 'sucesso'){?>
         <p>Fabricante atualizado com sucesso!</p>
