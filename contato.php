@@ -13,13 +13,14 @@ if(isset($_POST['enviar'])){
     $mensagem = $_POST['mensagem'];
     try{
         $mail->isSMTP();
-        $mail->Host = 'rafah1194@gmail.com';
+        $mail->Host = 'smtp.titan.email';
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = 'f09e8a8f9bde0c';
-        $mail->Password = '1ee102fae1f0e7';
+        $mail->Port = 465;
+        $mail->SMTPSecure = 'ssl'; 
+        $mail->Username = 'rafael@sunioweb.com.br';
+        $mail->Password = 'rapid9Z46w';
 
-        $mail->setFrom('from@example.com', 'Mailer');
+        $mail->setFrom('rafael@sunioweb.com.br', 'Mailer');
         $mail->addAddress('joe@exemple.net', 'Joe User');
         $mail->addAddress('ellen@example.com');
         $mail->addAddress('info@example.com', 'Information');
